@@ -8,6 +8,8 @@ const obj = {
             userIndex: 0,
             messageToSend: '',
             myTimeout: '',
+            chatsearchinput: '',
+            chatParsed: ''
         }
     },
     methods: {
@@ -72,6 +74,23 @@ const obj = {
 
             let formattedDate = date.toLocaleDateString() + '  ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
             return formattedDate
+        },
+        searchChat() {
+
+            this.contacts.forEach((element, index) => {
+                if (element.name.toLowerCase().includes(this.chatsearchinput.toLowerCase())) {
+                    console.log('ciao');
+                    this.contacts[index].visible = true
+                } else {
+                    console.log('addio');
+
+                    this.contacts[index].visible = false
+                }
+            });
+            console.log(this.contacts)
+
+
+
         }
     },
 

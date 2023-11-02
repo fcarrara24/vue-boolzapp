@@ -63,7 +63,8 @@
                         <div class="   d-flex  align-items-center bg-light flex-grow-1 p-2">
                             <i class="fa-solid fa-search p-2 "></i>
                             <input type="text" class="flex-grow-1 border-0 bg-light py-1"
-                                placeholder="Cerca o inizia una nuova chat" @keydown.enter="detectSend()">
+                                placeholder="Cerca o inizia una nuova chat" @keydown.enter="searchChat()"
+                                v-model="chatsearchinput">
                         </div>
 
                     </div>
@@ -75,23 +76,28 @@
                     <div class="row row-fixer ">
                         <!-- user to replicate -->
                         <div v-for="(user, index) in contacts" @click="selectUser(user.id)"
-                            :class="{'clickedObj' : isSelected(user.id)}"
-                            class="contact col-12 d-flex flex-row align-items-center justify-content-between">
-                            <div class="user-left d-flex flex-row justify-content-center">
-                                <div class="contact-image-container py-2 ">
-                                    <img :src="user.avatar" class="my-rounded" alt="">
-                                </div>
-                                <div class="user-info p-2">
-                                    <div class="username">{{user.name}}</div>
-                                    <div class="text-grey last-message">ultimo messaggio inviato in data
-                                        {{user.messages[user.messages.length - 1].date}}</div>
+                            :class="{'clickedObj' : isSelected(user.id)}" class="contact col-12 ">
+                            <!-- render -->
+                            <div class="outer-rendering" v-show="user.visible">
+                                <div class="d-flex flex-row align-items-center justify-content-between">
+                                    <div class="user-left d-flex flex-row justify-content-center">
+                                        <div class="contact-image-container py-2 ">
+                                            <img :src="user.avatar" class="my-rounded" alt="">
+                                        </div>
+                                        <div class="user-info p-2">
+                                            <div class="username">{{user.name}}</div>
+                                            <div class="text-grey last-message">ultimo messaggio inviato in data
+                                                {{user.messages[user.messages.length - 1].date}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
+                                        <div class="last-message-time last-message text-grey">
+                                            {{lastMessageParser(user.messages[user.messages.length -1].date)}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
-                                <div class="last-message-time last-message text-grey">
-                                    {{lastMessageParser(user.messages[user.messages.length -1].date)}}
-                                </div>
-                            </div>
+
                         </div>
 
 
