@@ -135,12 +135,13 @@
 
 
                 <div class="bottom-content d-flex flex-column justify-content-end">
-                    <div class="chat-container py-3">
+                    <div class="chat-container py-3" v-show="noplaceholder">
                         <div id="chat" class="chat-width d-flex flex-column justify-content-end">
                             <!-- generated via js -->
-                            <div v-for="message in contacts[userIndex].messages"
+                            <div v-for="(message,index) in contacts[userIndex].messages"
                                 class="d-flex justify-content-start pb-1"
-                                :class="'justify-content-'+returnStartEnd(message.status)">
+                                :class="'justify-content-'+returnStartEnd(message.status)"
+                                @click="removeMessage(index)">
                                 <div class="message card px-3 py-2 message-content d-flex flex-row justify-content-between"
                                     :class="'bg-'+returnStartEnd(message.status)">
                                     <span>{{message.message}}</span>

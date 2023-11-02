@@ -9,13 +9,17 @@ const obj = {
             messageToSend: '',
             myTimeout: '',
             chatsearchinput: '',
-            chatParsed: ''
+            chatParsed: '',
+            noplaceholder: true
         }
     },
     methods: {
         lastMessageParser(timevar) {
-            timevar = timevar.substring(11, 16);
-            return timevar
+            if (timevar !== undefined) {
+                timevar = timevar.substring(11, 16);
+                return timevar
+            }
+
         },
         selectUser(id) {
 
@@ -52,10 +56,16 @@ const obj = {
                     status: 'sent'
                 }
 
+
                 this.contacts[this.userIndex].messages.push(message)
                 //resetting message
                 console.log(this.contacts[this.userIndex])
                 this.messageToSend = '';
+                if (!this.noplaceholder) {
+                    this.noplaceholder = true;
+                    this.removeMessage(0)
+                }
+
                 this.myTimeout = setTimeout(() => { this.addResponse() }, 1000)
             }
         },
@@ -91,6 +101,19 @@ const obj = {
 
 
 
+        },
+        removeMessage(index) {
+            //prevent problems with void chat
+            if (this.contacts[this.userIndex].messages.length === 1) {
+                this.contacts[this.userIndex].messages.push({
+                    date: this.contacts[this.userIndex].messages[0].date,
+                    message: '',
+                    status: 'sent'
+                })
+                this.noplaceholder = false
+            }
+            //position will be index -1
+            this.contacts[this.userIndex].messages.splice(index, 1);
         }
     },
 
