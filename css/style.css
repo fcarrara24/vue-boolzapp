@@ -25,6 +25,7 @@
     --out-bg-green: #00a884;
     --user-bg-color: #e3e4e8;
     --my-chat-color: #d9fdd3;
+    --icons-grey-filler: #b1b1b1
 
     --topGreen-height: 125px;
     --app-height: 96vh;
@@ -145,6 +146,11 @@ input{
     border-radius: 50%;
 }
 
+.topbar-name{
+    font-size: 1em;
+    font-style: bold;
+}
+
 .sidebar-bottom{
     overflow-y: auto;
 }
@@ -165,9 +171,20 @@ input{
 }
 
 
+img{
+    max-width: 100%;
+}
 
+.icon-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-
+.icon-container>i{
+    font-size: 1.2em;
+    
+}
 
 
 
