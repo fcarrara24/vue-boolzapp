@@ -215,7 +215,7 @@ input{
     background-color: white;
     border-radius: 50%;
     height: 30px;
-    width: 30px;
+    min-width: 30px;
 }
 
 #container-bell>*{
@@ -268,3 +268,15 @@ input{
     }
 }
 
+/* tablet */
+@media screen and (max-width: 768px) {
+    .topbar-name{
+        display: none!important;
+    }
+    .news-title{
+        display: none;
+    }
+    .last-message-time{
+        display: none;
+    }
+}
