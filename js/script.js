@@ -6,12 +6,13 @@ const obj = {
         return {
             contacts: dataContacts,
             userIndex: 0,
+            messageToSend: '',
         }
     },
     methods: {
-        lastMessageParser(time) {
-            time = time.substring(11, 16);
-            return time
+        lastMessageParser(timevar) {
+            timevar = timevar.substring(11, 16);
+            return timevar
         },
         selectUser(id) {
 
@@ -38,6 +39,25 @@ const obj = {
             } else {
                 return 'start'
             }
+        },
+        addMessage() {
+
+            let message = {
+                date: this.dateConstructor(),
+                message: this.messageToSend,
+                status: 'sent'
+            }
+
+            this.contacts[this.userIndex].messages.push(message)
+            //resetting message
+            console.log(this.contacts[this.userIndex])
+            this.messageToSend = ''
+        },
+        dateConstructor() {
+            const date = new Date()
+
+            let formattedDate = date.toLocaleDateString() + '  ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+            return formattedDate
         }
     },
 
