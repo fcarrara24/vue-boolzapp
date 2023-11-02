@@ -7,6 +7,7 @@ const obj = {
             contacts: dataContacts,
             userIndex: 0,
             messageToSend: '',
+            myTimeout: '',
         }
     },
     methods: {
@@ -42,16 +43,29 @@ const obj = {
         },
         addMessage() {
 
+            if (this.messageToSend !== '') {
+                let message = {
+                    date: this.dateConstructor(),
+                    message: this.messageToSend,
+                    status: 'sent'
+                }
+
+                this.contacts[this.userIndex].messages.push(message)
+                //resetting message
+                console.log(this.contacts[this.userIndex])
+                this.messageToSend = '';
+                this.myTimeout = setTimeout(() => { this.addResponse() }, 1000)
+            }
+        },
+        addResponse() {
+            clearTimeout(this.myTimeout);
             let message = {
                 date: this.dateConstructor(),
-                message: this.messageToSend,
-                status: 'sent'
+                message: 'ok',
+                status: 'response'
             }
-
             this.contacts[this.userIndex].messages.push(message)
-            //resetting message
-            console.log(this.contacts[this.userIndex])
-            this.messageToSend = ''
+            return
         },
         dateConstructor() {
             const date = new Date()
