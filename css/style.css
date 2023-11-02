@@ -279,4 +279,17 @@ input{
     .last-message-time{
         display: none;
     }
+    
+}
+
+@media screen and (max-width: 600px) {
+    .user-info{
+        display: none;
+    }
+    .icon-container{
+        display: none;
+    }
+    .news-description{
+        display: none;
+    }
 }
