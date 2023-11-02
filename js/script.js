@@ -31,7 +31,7 @@ const obj = {
         selectUser(id) {
 
             this.userIndex = id - 1;
-
+            this.noplaceholder = true
         },
         idToIndex(id) {
             for (let i = 0; i < this.contacts.length; i++) {
