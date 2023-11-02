@@ -141,12 +141,15 @@
                             <div v-for="(message,index) in contacts[userIndex].messages"
                                 class="d-flex justify-content-start pb-1"
                                 :class="'justify-content-'+returnStartEnd(message.status)"
-                                @click="removeMessage(index)">
+                                @mouseover="showdelete = true" @mouseout="showdelete = false">
                                 <div class="message card px-3 py-2 message-content d-flex flex-row justify-content-between"
                                     :class="'bg-'+returnStartEnd(message.status)">
                                     <span>{{message.message}}</span>
-                                    <div class="time d-flex flex-column justify-content-end pl-2">
-                                        {{lastMessageParser(message.date)}}
+                                    <div class="time d-flex flex-row justify-content-end align-items-start pl-2">
+                                        <div v-show="!showdelete">{{lastMessageParser(message.date)}}</div>
+                                        <div v-show="showdelete" class="pl-2" @click="removeMessage(index)">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

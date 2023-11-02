@@ -10,13 +10,20 @@ const obj = {
             myTimeout: '',
             chatsearchinput: '',
             chatParsed: '',
-            noplaceholder: true
+            noplaceholder: true,
+            showdelete: false,
         }
     },
     methods: {
         lastMessageParser(timevar) {
+            timevar = String(timevar)
             if (timevar !== undefined) {
-                timevar = timevar.substring(11, 16);
+                if (timevar[15] !== ':') {
+                    timevar = timevar.substring(10, 16);
+
+                } else {
+                    timevar = timevar.substring(10, 15);
+                }
                 return timevar
             }
 
@@ -108,7 +115,8 @@ const obj = {
                 this.contacts[this.userIndex].messages.push({
                     date: this.contacts[this.userIndex].messages[0].date,
                     message: '',
-                    status: 'sent'
+                    status: 'sent',
+
                 })
                 this.noplaceholder = false
             }
