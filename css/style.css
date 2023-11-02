@@ -25,7 +25,8 @@
     --out-bg-green: #00a884;
     --user-bg-color: #e3e4e8;
     --my-chat-color: #d9fdd3;
-    --icons-grey-filler: #b1b1b1
+    --icons-grey-filler: #b1b1b1;
+    --news-color: #8edafc;
 
     --topGreen-height: 125px;
     --app-height: 96vh;
@@ -50,7 +51,7 @@
 }
 
 .bg-debug{
-    background-color: red;
+    background-color: white;
 }
 
 #app{
@@ -71,7 +72,6 @@
 
 .sidebar-top{
     width: 100%;
-    height: calc(var(--topGreen-height) - (100vh - var(--app-height))/2 - 1px);
 }
 
 .topbar{
@@ -84,7 +84,32 @@
     width: calc(100% - 23vw);
 }
 
-/*sidebar via js*/
+/*sidebar via */
+
+/*sidebar topbar*/
+
+img{
+    max-width: 100%;
+}
+
+.icon-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-container>i{
+    font-size: 1.2em;
+    
+}
+
+.border-grey{
+    border-right: 1px solid var(--icons-grey-filler);
+}
+
+
+
+
 
 /*content handler */
 
@@ -93,6 +118,26 @@
     background-image: url(https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png);
     
 }
+
+/*sidebar bottom*/
+
+.sidebar-bottom{
+    overflow-y: auto;
+}
+.row-fixer{
+    width: 100%;
+    margin-left: 0px;
+}
+
+
+
+
+.contact{
+    height: auto;
+    border-bottom: 1px solid var(--user-bg-color);
+}
+
+
 
 
 .chat-container{
@@ -151,40 +196,59 @@ input{
     font-style: bold;
 }
 
-.sidebar-bottom{
-    overflow-y: auto;
-}
-.row-fixer{
-    width: 100%;
-    margin-left: 0px;
+.my-text-info{
+    color: var(--icons-grey-filler);
+    font-size: 0.85em
 }
 
 
-
-
-.contact{
-    /* height: auto;
-     
-    */
+#topbar-news{
     height: 100px;
-    background-color: green;
 }
 
-
-img{
-    max-width: 100%;
+.news-background{
+    background-color: var(--news-color);
 }
 
-.icon-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#container-bell{
+    background-color: white;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
 }
 
-.icon-container>i{
-    font-size: 1.2em;
+#container-bell>*{
+    transform: translate(20%, 20%);
+    color: var(--news-color);
+}
+
+.news-title{
+    font-size: bolder;
+}
+
+.news-description{
+    text-decoration: underline;
+}
+
+.contact-image-container{
+    min-width: 50px;
+    max-width: 60px;
+}
+
+.my-rounded{
+    border-radius: 50%;
+}
+
+.text-grey{
+    color: var(--icons-grey-filler);
     
 }
 
+.username{
+    font-size:1.2em;
+}
 
+.last-message{
+    font-size: 0.8em;
+}
 

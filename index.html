@@ -24,7 +24,8 @@
         <div id="app" class="  d-flex flex-row">
             <div class="sidebar bg-secondary d-flex flex-column">
                 <div class="sidebar-top  d-flex flex-column">
-                    <div class="topbar d-flex flex-row p-2 ">
+                    <!-- topbar profile -->
+                    <div class="topbar d-flex flex-row p-2 border-grey ">
                         <div class="topbar-left d-flex flex-row flex-grow-1">
                             <div class="topbar-profile ">
                                 <img class="profile-icon" src="img/avatar_1.jpg" alt="profile">
@@ -43,46 +44,79 @@
                             </div>
                         </div>
                     </div>
-                    <div class="topbar-search d-flex flex-row align-items-center flex-grow-1"
-                        style="background-color: white;">
-                        <div class="  mx-2 d-flex flex-row align-items-center bg-light flex-grow-1">
-                            <i class="fa-solid fa-search px-2"></i>
-                            <input type="text" class="flex-grow-1 border-0 bg-light py-1"
-                                placeholder="Scrivi un messaggio" @keydown.enter="detectSend()">
+                    <!-- topbar-news -->
+                    <div id="topbar-news" class="d-flex flex-row news-background pl-4 align-items-center">
+                        <div id="container-bell">
+                            <i class="fa-regular fa-bell-slash"></i>
                         </div>
-                        <svg viewBox="0 0 24 24" height="20" width="20" preserveAspectRatio="xMidYMid meet" class="pr-1"
-                            version="1.1" x="0px" y="0px" enable-background="new 0 0 24 24">
-                            <path fill="currentColor"
-                                d="M10,18.1h4v-2h-4V18.1z M3,6.1v2h18v-2H3z M6,13.1h12v-2H6V13.1z"></path>
-                        </svg>
+                        <div class="news-text d-flex flex-column align-items-start justify-content-center pl-1">
+                            <div class="news-title ">
+                                Ricevi notifiche di nuovi messaggi
+                            </div>
+                            <span class="news-description text-left">
+                                Attiva le notifiche desktop
+                            </span>
+                        </div>
                     </div>
+
+                    <div class="sidebar-search d-flex  align-items-center flex-grow-1" style="background-color: white;">
+                        <div class="   d-flex  align-items-center bg-light flex-grow-1 p-2">
+                            <i class="fa-solid fa-search p-2 "></i>
+                            <input type="text" class="flex-grow-1 border-0 bg-light py-1"
+                                placeholder="Cerca o inizia una nuova chat" @keydown.enter="detectSend()">
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div class="sidebar-bottom bg-debug flex-grow-1">
+
                     <div class="row row-fixer ">
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
-                        <div class="contact col-12">content</div>
+                        <div class="contact col-12 d-flex flex-row align-items-center justify-content-between">
+                            <div class="user-left d-flex flex-row justify-content-center">
+                                <div class="contact-image-container py-2 ">
+                                    <img src="img/avatar_2.jpg" class="my-rounded" alt="">
+                                </div>
+                                <div class="user-info p-2">
+                                    <div class="username">Sofia</div>
+                                    <div class="text-grey last-message">ultimo messaggio inviato</div>
+                                </div>
+                            </div>
+                            <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
+                                <div class="last-message-time last-message text-grey">12//ph</div>
+                            </div>
+                        </div>
+
 
                     </div>
 
                 </div>
             </div>
             <div class="content">
-                <div class="topbar"></div>
+                <div class="topbar d-flex flex-row p-2">
+                    <div class="topbar-left d-flex flex-row flex-grow-1">
+                        <div class="topbar-profile ">
+                            <img class="profile-icon" src="img/avatar_1.jpg" alt="profile">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="topbar-name d-flex flex-row align-items-center ml-2 "
+                                style="max-height: 10px; padding-top: 5px;">Francesco</div>
+                            <div class="ml-2 my-text-info">ultimo accesso //inserire logica</div>
+                        </div>
+                    </div>
+                    <div class="topbar-right d-flex flex-row ">
+                        <div class="icon-container mr-2">
+                            <i class="fa-solid fa-magnifying-glass " style="color: #b1b1b1"></i>
+                        </div>
+                        <div class="icon-container mr-2">
+                            <i class="fa-solid fa-paperclip " style="color: #b1b1b1"></i>
+                        </div>
+                        <div class="icon-container mr-2">
+                            <i class="fa-solid fa-ellipsis-vertical " style="color: #b1b1b1"></i>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- chat will be generated via js -->
 
