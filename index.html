@@ -84,13 +84,12 @@
                                 </div>
                             </div>
                             <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
-                                <div class="last-message-time last-message text-grey">12//ph</div>
+                                <div class="last-message-time last-message text-grey">102//ph</div>
                             </div>
                         </div>
 
 
                     </div>
-
                 </div>
             </div>
             <div class="content">
@@ -130,14 +129,14 @@
                     <!-- chatting bar -->
                     <div class="writebar d-flex flex-row justify-content-center align-items-center px-3 "
                         role="textbox ">
-                        <div class="d-flex flex-row align-items-center"><i class="fa-solid fa-plus "
+                        <div class="d-flex flex-row align-items-center"><i class="fa-regular fa-smile smileAndMic"
                                 style="font-size: 1.3em;"></i></div>
                         <div class="input-container  mx-3 d-flex flex-row align-items-center bg-light">
-                            <i class="fa-solid fa-smile px-2" @click="changePerson"></i>
-                            <input type="text" class="flex-grow-1 border-0 bg-light " placeholder="Scrivi un messaggio"
-                                @keydown.enter="detectSend()" v-model="messageToSend">
+
+                            <input type="text" class="flex-grow-1 border-0 bg-light px-2"
+                                placeholder="Scrivi un messaggio" @keydown.enter="detectSend()" v-model="messageToSend">
                         </div>
-                        <div class="d-flex flex-row align-items-center"><i class="fa-solid fa-microphone"
+                        <div class="d-flex flex-row align-items-center"><i class="fa-solid fa-microphone smileAndMic"
                                 style="font-size: 1.3em;"></i></div>
                     </div>
                 </div>

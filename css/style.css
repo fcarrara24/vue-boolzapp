@@ -27,6 +27,7 @@
     --my-chat-color: #d9fdd3;
     --icons-grey-filler: #b1b1b1;
     --news-color: #8edafc;
+    --smileAndMicColor: #6b7376;
 
     --topGreen-height: 125px;
     --app-height: 96vh;
@@ -250,5 +251,9 @@ input{
 
 .last-message{
     font-size: 0.8em;
+}
+
+.smileAndMic{
+    color: var(--smileAndMicColor);
 }
 
