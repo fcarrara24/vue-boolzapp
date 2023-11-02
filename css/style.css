@@ -1,0 +1,173 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+::-webkit-scrollbar {
+    margin-right: 20px;
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+
+
+:root{
+    --out-bg-grey: #e1e1de;
+    --out-bg-green: #00a884;
+    --user-bg-color: #e3e4e8;
+    --my-chat-color: #d9fdd3;
+
+    --topGreen-height: 125px;
+    --app-height: 96vh;
+    --top-profile-height: 60px;
+
+    --chat-height: 100%;
+    --text-width: 54vw;
+}
+
+.wrapper{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--out-bg-grey);
+}
+
+.topGreen{
+    position: fixed;
+    z-index: 500;
+    width: 100vw;
+    height: var(--topGreen-height);
+    background-color: var(--out-bg-green);
+}
+
+.bg-debug{
+    background-color: red;
+}
+
+#app{
+    /* default position static, i had to modify */
+    position: relative;
+    height: var(--app-height);
+    width: 83vw;
+    margin: auto;
+    
+    z-index: 1000;
+}
+
+/* sidebar handler */
+.sidebar{
+    height: 100%;
+    min-width: 23vw;
+}
+
+.sidebar-top{
+    width: 100%;
+    height: calc(var(--topGreen-height) - (100vh - var(--app-height))/2 - 1px);
+}
+
+.topbar{
+    height: var(--top-profile-height);
+    background-color: var(--user-bg-color);
+}
+
+.content{
+    height: 100%;
+    width: calc(100% - 23vw);
+}
+
+/*sidebar via js*/
+
+/*content handler */
+
+.bottom-content{
+    height: calc(var(--app-height) - var(--top-profile-height));
+    background-image: url(https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png);
+    
+}
+
+
+.chat-container{
+    overflow-y: auto;
+}
+.chat-width{
+    width: var(--text-width);
+    margin: 0 auto;
+}
+.writebar{
+    width: 100%;
+    min-height: var(--top-profile-height);
+    background-color: var(--user-bg-color);
+}
+
+.writebar>*{
+    height: 70%;
+    width: height;
+    padding: auto;
+    
+}
+
+.input-container{
+    border-radius: 5px;
+    width: var(--text-width);
+}
+
+input{
+    outline: none;
+}
+
+.message-content{
+    max-width: 75%;
+}
+
+.bg-start{
+    background-color: aliceblue;
+    border: 0;
+}
+
+.bg-end{
+    background-color: var(--my-chat-color);
+    border: 0;
+}
+
+.topbar-profile{
+    max-width: calc( var(--top-profile-height) - 15px);
+    background-size: cover;
+    overflow: hidden;
+    
+    border-radius: 50%;
+}
+
+.sidebar-bottom{
+    overflow-y: auto;
+}
+.row-fixer{
+    width: 100%;
+    margin-left: 0px;
+}
+
+
+
+
+.contact{
+    /* height: auto;
+     
+    */
+    height: 100px;
+    background-color: green;
+}
+
+
+
+
+
+
+
+
