@@ -5,22 +5,40 @@ const obj = {
     data() {
         return {
             contacts: dataContacts,
+            userIndex: 0,
         }
     },
     methods: {
-        lastMessageGetter(id) {
-            //getting real id
-            for (let i = 0; i < this.contacts.length; i++) {
-                if (id === this.contacts[i].id) {
-                    let time = this.contacts[i].messages[this.contacts[i].messages.length - 1].date;
-                    time = time.substring(11, 16)
+        lastMessageParser(time) {
+            time = time.substring(11, 16);
+            return time
+        },
+        selectUser(id) {
 
-                    return time
-                }
-            }
+            this.userIndex = id - 1;
 
         },
-
+        idToIndex(id) {
+            for (let i = 0; i < this.contacts.length; i++) {
+                if (id === this.contacts[i].id) {
+                    return i
+                }
+            }
+        },
+        isSelected(id) {
+            let index = this.idToIndex(id)
+            if (this.userIndex === index) {
+                return true
+            }
+            return false
+        },
+        returnStartEnd(variable) {
+            if (variable === 'sent') {
+                return 'end'
+            } else {
+                return 'start'
+            }
+        }
     },
 
     mounted() {

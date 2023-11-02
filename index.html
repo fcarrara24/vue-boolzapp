@@ -74,7 +74,8 @@
 
                     <div class="row row-fixer ">
                         <!-- user to replicate -->
-                        <div v-for="(user, index) in contacts"
+                        <div v-for="(user, index) in contacts" @click="selectUser(user.id)"
+                            :class="{'clickedObj' : isSelected(user.id)}"
                             class="contact col-12 d-flex flex-row align-items-center justify-content-between">
                             <div class="user-left d-flex flex-row justify-content-center">
                                 <div class="contact-image-container py-2 ">
@@ -87,7 +88,8 @@
                                 </div>
                             </div>
                             <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
-                                <div class="last-message-time last-message text-grey">{{lastMessageGetter(user.id)}}
+                                <div class="last-message-time last-message text-grey">
+                                    {{lastMessageParser(user.messages[user.messages.length -1].date)}}
                                 </div>
                             </div>
                         </div>
@@ -100,12 +102,14 @@
                 <div class="topbar d-flex flex-row p-2">
                     <div class="topbar-left d-flex flex-row flex-grow-1">
                         <div class="topbar-profile ">
-                            <img class="profile-icon" src="img/avatar_1.jpg" alt="profile">
+                            <img class="profile-icon" :src="contacts[userIndex].avatar" alt="profile">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                             <div class="topbar-name d-flex flex-row align-items-center ml-2 "
-                                style="max-height: 10px; padding-top: 5px;">Francesco</div>
-                            <div class="ml-2 my-text-info">ultimo accesso {{lastMessageGetter()}}</div>
+                                style="max-height: 10px; padding-top: 5px;">{{contacts[userIndex].name}}</div>
+                            <div class="ml-2 my-text-info">ultimo accesso
+                                {{lastMessageParser(contacts[userIndex].messages[contacts[userIndex].messages.length
+                                -1].date)}}</div>
                         </div>
                     </div>
                     <div class="topbar-right d-flex flex-row ">
@@ -126,8 +130,20 @@
 
                 <div class="bottom-content d-flex flex-column justify-content-end">
                     <div class="chat-container py-3">
-                        <div id="chat" class="chat-width d-flex flex-column justify-content-end" v-html="totalMsg">
+                        <div id="chat" class="chat-width d-flex flex-column justify-content-end">
                             <!-- generated via js -->
+                            <div v-for="message in contacts[userIndex].messages"
+                                class="d-flex justify-content-start pb-1"
+                                :class="'justify-content-'+returnStartEnd(message.status)">
+                                <div class="message card px-3 py-2 message-content d-flex flex-row justify-content-between"
+                                    :class="'bg-'+returnStartEnd(message.status)">
+                                    <span>{{message.message}}</span>
+                                    <div class="time d-flex flex-column justify-content-end">
+                                        {{lastMessageParser(message.date)}}
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <!-- chatting bar -->

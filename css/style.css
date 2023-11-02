@@ -293,3 +293,17 @@ input{
         display: none;
     }
 }
+
+/* js */
+.clickedObj{
+    background-color: #e9ebeb;
+}
+
+.message{
+    min-width: 300px;
+}
+
+.time{
+    font-size: 0.7em;
+    color: #b1b1b1;
+}
