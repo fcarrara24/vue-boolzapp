@@ -1,4 +1,6 @@
 import { dataContacts } from './data.js'
+import { possibleResponses, getRnd } from './response.js'
+
 
 const { createApp } = Vue;
 const obj = {
@@ -83,7 +85,7 @@ const obj = {
             clearTimeout(this.myTimeout);
             let message = {
                 date: this.dateConstructor(),
-                message: 'ok',
+                message: possibleResponses[getRnd(0, possibleResponses.length - 1)].rndMsg,
                 status: 'response'
             }
             this.contacts[this.userIndex].messages.push(message)
