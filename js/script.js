@@ -54,6 +54,11 @@ const obj = {
                 return 'start'
             }
         },
+        checkadd() {
+            if (this.messageToSend) {
+                this.addMessage();
+            }
+        },
         addMessage() {
 
             if (this.messageToSend.replace(/ /g, '') !== '') {
@@ -94,10 +99,8 @@ const obj = {
 
             this.contacts.forEach((element, index) => {
                 if (element.name.toLowerCase().includes(this.chatsearchinput.toLowerCase())) {
-                    console.log('ciao');
                     this.contacts[index].visible = true
                 } else {
-                    console.log('addio');
 
                     this.contacts[index].visible = false
                 }

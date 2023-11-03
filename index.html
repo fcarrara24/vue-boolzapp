@@ -59,8 +59,9 @@
                         </div>
                     </div>
 
-                    <div class="sidebar-search d-flex  align-items-center flex-grow-1" style="background-color: white;">
-                        <div class="   d-flex  align-items-center bg-light flex-grow-1 p-2">
+                    <div class="sidebar-search d-flex  align-items-center flex-grow-1 p-2"
+                        style="background-color: white;">
+                        <div class="   d-flex  align-items-center bg-light flex-grow-1 p-2 ">
                             <i class="fa-solid fa-search p-2 "></i>
                             <input type="text" class="flex-grow-1 border-0 bg-light py-1"
                                 placeholder="Cerca o inizia una nuova chat" @keydown.enter="searchChat()"
@@ -169,8 +170,9 @@
                             <input type="text" class="flex-grow-1 border-0 bg-light px-2"
                                 placeholder="Scrivi un messaggio" @keydown.enter="addMessage()" v-model="messageToSend">
                         </div>
-                        <div class="d-flex flex-row align-items-center"><i class="fa-solid fa-microphone smileAndMic"
-                                style="font-size: 1.3em;"></i></div>
+                        <div class="d-flex flex-row align-items-center"><i class="fa-solid smileAndMic"
+                                :class="{'fa-microphone' : !messageToSend}, {'fa-paper-plane' : messageToSend}"
+                                @click="checkadd()" style="font-size: 1.3em;"></i></div>
                     </div>
                 </div>
 
