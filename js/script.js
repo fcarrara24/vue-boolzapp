@@ -30,7 +30,7 @@ const obj = {
         },
         selectUser(id) {
 
-            this.userIndex = id - 1;
+            this.userIndex = this.idToIndex(id);
             this.noplaceholder = true
         },
         idToIndex(id) {
@@ -111,20 +111,52 @@ const obj = {
         },
         removeMessage(index) {
             //prevent problems with void chat
-            if (this.contacts[this.userIndex].messages.length === 1) {
-                this.contacts[this.userIndex].messages.push({
-                    date: this.contacts[this.userIndex].messages[0].date,
-                    message: '',
-                    status: 'sent',
+            // if (this.contacts[this.userIndex].messages.length === 1) {
+            //     this.contacts[this.userIndex].messages.push({
+            //         date: this.contacts[this.userIndex].messages[0].date,
+            //         message: '',
+            //         status: 'sent',
 
-                })
-                this.noplaceholder = false
-            }
+            //     })
+            //     this.noplaceholder = false
+            // }
             //position will be index -1
             this.contacts[this.userIndex].messages.splice(index, 1);
-        }
-    },
+        },
+        getLastAccess(id) {
+            //passed contact id
+            const contact = this.contacts(this.idToIndex(id))
+            return contact.messages[contact.messages.length - 1].message
+        },
+        getLastMessage(id) {
 
+        },
+        lastDateId(id) {
+            let index = this.idToIndex(id);
+            console.log('ciao ' + index)
+            if (this.contacts[index].messages.length > 0) {
+
+                return this.lastMessageParser(this.contacts[index].messages[this.contacts[index].messages.length - 1].date);
+            } else {
+                return 'nessun messaggio'
+            }
+        }
+
+    },
+    computed: {
+        activeContact() {
+            //funziona per calcolare i metodi
+            return this.contacts[this.userIndex]
+        },
+        lastDate() {
+            if (this.activeContact.messages.length > 0) {
+                return this.lastMessageParser(this.activeContact.messages[this.activeContact.messages.length - 1].date);
+            } else {
+                return 'nessun messaggio'
+            }
+        },
+
+    },
     mounted() {
 
     }
