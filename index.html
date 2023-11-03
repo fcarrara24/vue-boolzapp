@@ -114,7 +114,8 @@
                         <div class="d-flex flex-column justify-content-center">
                             <div class="topbar-name d-flex flex-row align-items-center ml-2 "
                                 style="max-height: 10px; padding-top: 5px;">{{activeContact.name}}</div>
-                            <div class="ml-2 my-text-info">ultimo accesso
+                            <div class="ml-2 my-text-info" v-if="(myTimeout !== '')">sta scrivendo...</div>
+                            <div v-else class="ml-2 my-text-info">ultimo accesso
                                 {{lastDate}}
                                 <!-- {{lastMessageParser(activeContact.messages[activeContact.messages.length
                                 -1].date)}} -->
@@ -138,19 +139,28 @@
 
 
                 <div class="bottom-content d-flex flex-column justify-content-end">
-                    <div class="chat-container py-3">
+                    <div class="chat-container py-3" ref="scrollContainer">
                         <div id="chat" class="chat-width d-flex flex-column justify-content-end">
                             <!-- generated via js -->
                             <div v-for="(message,index) in contacts[userIndex].messages">
+
                                 <div v-if="activeContact.messages.length" class="d-flex justify-content-start pb-1"
                                     :class="'justify-content-'+returnStartEnd(message.status)"
-                                    @mouseover="showdelete = true" @mouseout="showdelete = false">
+                                    @mouseover="assigndelete(index)" @mouseleave="removedelete(index)">
                                     <div class="message card px-3 py-2 message-content d-flex flex-row justify-content-between"
                                         :class="'bg-'+returnStartEnd(message.status)">
                                         <span>{{message.message}}</span>
                                         <div class="time d-flex flex-row justify-content-start align-items-start pl-2">
-                                            <div v-show="!showdelete">{{lastMessageParser(message.date)}}</div>
-                                            <div v-show="showdelete" class="pl-2" @click="removeMessage(index)">
+                                            <div>{{lastMessageParser(message.date)}}</div>
+
+                                        </div>
+                                    </div>
+                                    <!-- creating a popup bin -->
+
+                                    <div class="d-flex flex-row"
+                                        :class="'justify-content-'+returnStartEnd(message.status)">
+                                        <div class="deletemsg">
+                                            <div v-show="isbintoshow(index)" class="pl-2" @click="removeMessage(index)">
                                                 <i class="fa-solid fa-trash"></i>
                                             </div>
                                         </div>
@@ -161,6 +171,7 @@
                         </div>
                     </div>
                     <!-- chatting bar -->
+
                     <div class="writebar d-flex flex-row justify-content-center align-items-center px-3 "
                         role="textbox ">
                         <div class="d-flex flex-row align-items-center"><i class="fa-regular fa-smile smileAndMic"
@@ -174,6 +185,7 @@
                                 :class="{'fa-microphone' : !messageToSend}, {'fa-paper-plane' : messageToSend}"
                                 @click="checkadd()" style="font-size: 1.3em;"></i></div>
                     </div>
+
                 </div>
 
             </div>

@@ -322,3 +322,9 @@ input{
 .contact:hover{
     background-color: #e9ebeb;
 }
+
+
+.deletemsg{
+    width: fit-content;
+    margin: auto;
+}

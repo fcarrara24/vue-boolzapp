@@ -12,7 +12,7 @@ const obj = {
             myTimeout: '',
             chatsearchinput: '',
             chatParsed: '',
-            showdelete: false,
+            deleteindex: '',
         }
     },
     methods: {
@@ -83,12 +83,16 @@ const obj = {
         },
         addResponse() {
             clearTimeout(this.myTimeout);
+            // to trigger the typing display
+            this.myTimeout = '';
             let message = {
                 date: this.dateConstructor(),
                 message: possibleResponses[getRnd(0, possibleResponses.length - 1)].rndMsg,
                 status: 'response'
             }
             this.contacts[this.userIndex].messages.push(message)
+            //autoscroll
+            this.autoScroll()
             return
         },
         dateConstructor() {
@@ -107,7 +111,6 @@ const obj = {
                     this.contacts[index].visible = false
                 }
             });
-            console.log(this.contacts)
 
 
 
@@ -138,7 +141,22 @@ const obj = {
             } else {
                 return 'nessun messaggio'
             }
+        },
+        autoScroll() {
+            //using $ref sintaz to select items
+            const scrollContainer = this.$refs.scrollContainer;
+            scrollContainer.scrollTop = scrollContainer.scrollHeight;
+        },
+        assigndelete(msgposition) {
+            this.deleteindex = msgposition;
+        },
+        removedelete(msgposition) {
+            this.deleteindex = ''
+        },
+        isbintoshow(index) {
+            return this.deleteindex === index
         }
+
 
     },
     computed: {
