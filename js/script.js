@@ -123,11 +123,15 @@ const obj = {
             return contact.messages[contact.messages.length - 1].message
         },
         getLastMessage(id) {
+            let index = this.idToIndex(id);
+            if (this.contacts[index].messages.length > 0) {
 
+                return (this.contacts[index].messages[this.contacts[index].messages.length - 1].message);
+            } else {
+            }
         },
         lastDateId(id) {
             let index = this.idToIndex(id);
-            console.log('ciao ' + index)
             if (this.contacts[index].messages.length > 0) {
 
                 return this.lastMessageParser(this.contacts[index].messages[this.contacts[index].messages.length - 1].date);
