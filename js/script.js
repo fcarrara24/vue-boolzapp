@@ -13,6 +13,8 @@ const obj = {
             chatsearchinput: '',
             chatParsed: '',
             deleteindex: '',
+            deletePopup: false,
+            contactsEmpity: false
         }
     },
     methods: {
@@ -69,7 +71,6 @@ const obj = {
                     message: this.messageToSend,
                     status: 'sent'
                 }
-
 
                 this.contacts[this.userIndex].messages.push(message)
                 //resetting message
@@ -155,6 +156,24 @@ const obj = {
         },
         isbintoshow(index) {
             return this.deleteindex === index
+        },
+        popupDelete() {
+            this.deletePopup = !this.deletePopup;
+        },
+        deleteChat() {
+            if (this.contacts.length === 1) {
+                this.contactsEmpity = true
+            }
+            this.contacts.splice((this.userIndex), 1)
+            this.userIndex = 0
+
+        },
+        addChat() {
+            //fine
+            this.contactsEmpity = false
+        },
+        deleteAllMessages() {
+            this.activeContact.messages = []
         }
 
 

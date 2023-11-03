@@ -22,16 +22,19 @@
 
         <!-- actual content -->
         <div id="app" class="  d-flex flex-row">
+
             <div class="sidebar bg-secondary d-flex flex-column">
                 <div class="sidebar-top  d-flex flex-column">
                     <!-- topbar profile -->
                     <div class="topbar d-flex flex-row p-2 border-grey ">
                         <div class="topbar-left d-flex flex-row flex-grow-1">
+
                             <div class="topbar-profile ">
                                 <img class="profile-icon" src="img/avatar_io.jpg" alt="profile">
                             </div>
                             <div class="topbar-name d-flex flex-row align-items-center ml-2">Chiara</div>
                         </div>
+
                         <div class="topbar-right d-flex flex-row ">
                             <div class="icon-container mr-2">
                                 <i class="fa-regular fa-circle " style="color: #b1b1b1"></i>
@@ -74,11 +77,17 @@
 
                 <div class="sidebar-bottom bg-debug flex-grow-1">
 
-                    <div class="row row-fixer ">
+                    <div class="row row-fixer " v-if="!contactsEmpity">
                         <!-- user to replicate -->
+
+
+
+
+
+
                         <div v-for="(user, index) in contacts" @click="selectUser(user.id)"
                             :class="{'clickedObj' : isSelected(user.id)}" class="contact col-12 ">
-                            <!-- render -->
+
                             <div class="outer-rendering" v-show="user.visible">
                                 <div class="d-flex flex-row align-items-center justify-content-between">
                                     <div class="user-left d-flex flex-row justify-content-center">
@@ -102,12 +111,15 @@
                         </div>
 
 
+
+
+
                     </div>
                 </div>
             </div>
             <div class="content">
                 <div class="topbar d-flex flex-row p-2">
-                    <div class="topbar-left d-flex flex-row flex-grow-1">
+                    <div v-if="!contactsEmpity" class="topbar-left d-flex flex-row flex-grow-1">
                         <div class="topbar-profile ">
                             <img class="profile-icon" :src="activeContact.avatar" alt="profile">
                         </div>
@@ -122,14 +134,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="topbar-right d-flex flex-row ">
+                    <div class="topbar-right d-flex flex-row " v-if="!contactsEmpity">
                         <div class="icon-container mr-2">
                             <i class="fa-solid fa-magnifying-glass " style="color: #b1b1b1"></i>
                         </div>
                         <div class="icon-container mr-2">
                             <i class="fa-solid fa-paperclip " style="color: #b1b1b1"></i>
                         </div>
-                        <div class="icon-container mr-2">
+                        <div class="icon-container mr-2" @click="popupDelete()">
                             <i class="fa-solid fa-ellipsis-vertical " style="color: #b1b1b1"></i>
                         </div>
                     </div>
@@ -139,7 +151,15 @@
 
 
                 <div class="bottom-content d-flex flex-column justify-content-end">
-                    <div class="chat-container py-3" ref="scrollContainer">
+                    <div id="popupdelete" v-if="deletePopup" @click="popupDelete()">
+                        <div class="popup-inner card ">
+                            <div class="button btn-info my-2 text-center" @click="deleteAllMessages()">cancella i
+                                messaggi</div>
+                            <div class="button btn-danger text-center" @click="deleteChat()">cancella la chat</div>
+
+                        </div>
+                    </div>
+                    <div class="chat-container py-3" ref="scrollContainer" v-if="!contactsEmpity">
                         <div id="chat" class="chat-width d-flex flex-column justify-content-end">
                             <!-- generated via js -->
                             <div v-for="(message,index) in contacts[userIndex].messages">
@@ -172,7 +192,8 @@
                     </div>
                     <!-- chatting bar -->
 
-                    <div class="writebar d-flex flex-row justify-content-center align-items-center px-3 "
+                    <div v-if="!contactsEmpity"
+                        class="writebar d-flex flex-row justify-content-center align-items-center px-3 "
                         role="textbox ">
                         <div class="d-flex flex-row align-items-center"><i class="fa-regular fa-smile smileAndMic"
                                 style="font-size: 1.3em;"></i></div>
@@ -184,7 +205,7 @@
                         <div class="d-flex flex-row align-items-center"><i class="fa-solid smileAndMic"
                                 :class="{'fa-microphone' : !messageToSend}, {'fa-paper-plane' : messageToSend}"
                                 @click="checkadd()" style="font-size: 1.3em;"></i></div>
-                    </div>
+                    </div>gi
 
                 </div>
 
