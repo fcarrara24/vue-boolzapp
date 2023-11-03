@@ -10,7 +10,6 @@ const obj = {
             myTimeout: '',
             chatsearchinput: '',
             chatParsed: '',
-            noplaceholder: true,
             showdelete: false,
         }
     },
@@ -110,16 +109,7 @@ const obj = {
 
         },
         removeMessage(index) {
-            //prevent problems with void chat
-            // if (this.contacts[this.userIndex].messages.length === 1) {
-            //     this.contacts[this.userIndex].messages.push({
-            //         date: this.contacts[this.userIndex].messages[0].date,
-            //         message: '',
-            //         status: 'sent',
 
-            //     })
-            //     this.noplaceholder = false
-            // }
             //position will be index -1
             this.contacts[this.userIndex].messages.splice(index, 1);
         },

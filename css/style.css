@@ -28,6 +28,7 @@
     --icons-grey-filler: #b1b1b1;
     --news-color: #8edafc;
     --smileAndMicColor: #6b7376;
+    --contact-clicked: #e1e1e1;
 
     --topGreen-height: 125px;
     --app-height: 96vh;
@@ -296,7 +297,7 @@ input{
 
 /* js */
 .clickedObj{
-    background-color: #e9ebeb;
+    background-color: var(--contact-clicked);
 }
 
 .message{
@@ -308,4 +309,6 @@ input{
     color: #b1b1b1;
 }
 
-
+.contact:hover{
+    background-color: #e9ebeb;
+}
