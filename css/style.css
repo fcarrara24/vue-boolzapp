@@ -169,6 +169,7 @@ img{
 
 input{
     outline: none;
+    max-width: 100%;
 }
 
 .message-content{
@@ -229,7 +230,9 @@ input{
 }
 
 .news-description{
+    font-size: 0.8em;
     text-decoration: underline;
+    color: var(--smileAndMicColor);
 }
 
 .contact-image-container{
@@ -293,6 +296,13 @@ input{
     .news-description{
         display: none;
     }
+    .chat-width{
+        width: auto;
+    }
+    .message{
+        min-width: 0px!important;
+    }
+    
 }
 
 /* js */

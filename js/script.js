@@ -30,7 +30,7 @@ const obj = {
         selectUser(id) {
 
             this.userIndex = this.idToIndex(id);
-            this.noplaceholder = true
+
         },
         idToIndex(id) {
             for (let i = 0; i < this.contacts.length; i++) {
@@ -38,6 +38,7 @@ const obj = {
                     return i
                 }
             }
+            return -1;
         },
         isSelected(id) {
             let index = this.idToIndex(id)
@@ -55,7 +56,7 @@ const obj = {
         },
         addMessage() {
 
-            if (this.messageToSend !== '') {
+            if (this.messageToSend.replace(/ /g, '') !== '') {
                 let message = {
                     date: this.dateConstructor(),
                     message: this.messageToSend,
@@ -66,14 +67,12 @@ const obj = {
                 this.contacts[this.userIndex].messages.push(message)
                 //resetting message
                 console.log(this.contacts[this.userIndex])
-                this.messageToSend = '';
-                if (!this.noplaceholder) {
-                    this.noplaceholder = true;
-                    this.removeMessage(0)
-                }
+
 
                 this.myTimeout = setTimeout(() => { this.addResponse() }, 1000)
             }
+            this.messageToSend = '';
+
         },
         addResponse() {
             clearTimeout(this.myTimeout);
