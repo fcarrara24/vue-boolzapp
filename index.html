@@ -21,223 +21,205 @@
 
 
         <!-- actual content -->
-        <div id="app" class="  d-flex flex-row">
-
-            <div class="sidebar bg-secondary d-flex flex-column">
-                <div class="sidebar-top  d-flex flex-column">
-                    <!-- topbar profile -->
-                    <div class="topbar d-flex flex-row p-2 border-grey ">
-                        <div class="topbar-left d-flex flex-row flex-grow-1">
-
-                            <div class="topbar-profile ">
-                                <img class="profile-icon" src="img/avatar_io.jpg" alt="profile">
-                            </div>
-                            <div class="topbar-name d-flex flex-row align-items-center ml-2">Chiara</div>
-                        </div>
-
-                        <div class="topbar-right d-flex flex-row ">
-                            <div class="icon-container mr-2">
-                                <i class="fa-regular fa-circle " style="color: #b1b1b1"></i>
-                            </div>
-                            <div class="icon-container mr-2">
-                                <i class="fa-solid fa-message " style="color: #b1b1b1"></i>
-                            </div>
-                            <div class="icon-container mr-2">
-                                <i class="fa-solid fa-ellipsis-vertical " style="color: #b1b1b1"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- topbar-news -->
-                    <div id="topbar-news" class="d-flex flex-row news-background pl-4 align-items-center">
-                        <div id="container-bell">
-                            <i class="fa-regular fa-bell-slash"></i>
-                        </div>
-                        <div class="news-text d-flex flex-column align-items-start justify-content-center pl-1">
-                            <div class="news-title ">
-                                Ricevi notifiche di nuovi messaggi
-                            </div>
-                            <span class="news-description text-left">
-                                Attiva le notifiche desktop
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-search d-flex  align-items-center flex-grow-1 p-2"
-                        style="background-color: white;" v-if="!contactInterface">
-                        <div class="   d-flex  align-items-center bg-light flex-grow-1 p-2 ">
-                            <i class="fa-solid fa-search p-2 "></i>
-                            <input type="text" class="flex-grow-1 border-0 bg-light py-1"
-                                placeholder="Cerca o inizia una nuova chat" @keydown.enter="searchChat()"
-                                v-model="chatsearchinput">
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="sidebar-bottom bg-debug flex-grow-1">
-
-                    <div>
-                        <div class="d-flex flex-row align-items-center justify-content-between pl-1"
-                            @click="contactInterface = !contactInterface">
-                            <div class="user-left d-flex flex-row justify-content-center">
-                                <div class="contact-image-container py-2 ml-3">
-                                    <!-- user-container -->
-                                    <div class=" my-rounded userDimensions">
-                                        <i class="fa-solid fa-user-plus"></i>
-                                    </div>
-                                </div>
-                                <div class="user-info p-2">
-                                    <div class="username">NUOVO CONTATTO</div>
-                                </div>
-                            </div>
-                            <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
-                                <div class="last-message-time last-message text-grey">
-                                    &nbsp;
-                                </div>
-                            </div>
-                        </div>
-                        <div v-if="contactInterface">
-                            <!-- adding a contact -->
-                            <div class="sidebar-search d-flex align-items-center flex-grow-1 p-2"
-                                style="background-color: white;">
-                                <div class="d-flex align-items-center bg-light flex-grow-1 p-2">
-                                    <input type="text" class="flex-grow-1 border-0 bg-light py-1" v-model="newUserName"
-                                        placeholder="Nome" @keyup.enter="addChat()">
-                                    <i class="fa-solid fa-plus-circle p-2" @click="addChat()"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row row-fixer " v-if="(!contactsEmpity && !contactInterface) ">
-                        <!-- user to replicate -->
-
-                        <div v-for="(user, index) in contacts" @click="selectUser(user.id)"
-                            :class="{'clickedObj' : isSelected(user.id)}" class="contact col-12 ">
-
-                            <div class="outer-rendering" v-show="user.visible">
-                                <div class="d-flex flex-row align-items-center justify-content-between">
-                                    <div class="user-left d-flex flex-row justify-content-center">
-                                        <div class="contact-image-container py-2 ">
-                                            <img :src="user.avatar" class="my-rounded" alt="">
-                                        </div>
-                                        <div class="user-info p-2">
-                                            <div class="username">{{user.name}}</div>
-                                            <div class="text-grey last-message">{{getLastMessage(user.id)}} inviato alle
-                                                {{lastDateId(user.id)}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
-                                        <div class="last-message-time last-message text-grey">
-                                            {{lastDateId(user.id)}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+        <div id="app">
 
 
-
-
-
-                    </div>
-
-                </div>
+            <div id="loading" class="d-flex flex-row align-items-center justify-content-center " v-if="loading">
+                <i class="fa-brands fa-whatsapp fa-beat" style="color: #4ecf17; font-size: 8em;"></i>
             </div>
-            <div class="content">
-                <div class="topbar d-flex flex-row p-2">
-                    <div v-if="!contactsEmpity" class="topbar-left d-flex flex-row flex-grow-1">
-                        <div class="topbar-profile ">
-                            <img class="profile-icon" :src="activeContact.avatar" alt="profile">
+
+            <div class="content-all d-flex flex-row" v-if="!loading">
+                <div class="sidebar bg-secondary d-flex flex-column">
+                    <div class="sidebar-top  d-flex flex-column">
+                        <!-- topbar profile -->
+                        <div class="topbar d-flex flex-row p-2 border-grey ">
+                            <div class="topbar-left d-flex flex-row flex-grow-1">
+                                <div class="topbar-profile ">
+                                    <img class="profile-icon" src="img/avatar_io.jpg" alt="profile">
+                                </div>
+                                <div class="topbar-name d-flex flex-row align-items-center ml-2">Chiara</div>
+                            </div>
+                            <div class="topbar-right d-flex flex-row ">
+                                <div class="icon-container mr-2">
+                                    <i class="fa-regular fa-circle " style="color: #b1b1b1"></i>
+                                </div>
+                                <div class="icon-container mr-2">
+                                    <i class="fa-solid fa-message " style="color: #b1b1b1"></i>
+                                </div>
+                                <div class="icon-container mr-2">
+                                    <i class="fa-solid fa-ellipsis-vertical " style="color: #b1b1b1"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <div class="topbar-name d-flex flex-row align-items-center ml-2 "
-                                style="max-height: 10px; padding-top: 5px;">{{activeContact.name}}</div>
-                            <div class="ml-2 my-text-info" v-if="(myTimeout !== '')">sta scrivendo...</div>
-                            <div v-else class="ml-2 my-text-info">ultimo accesso
-                                {{lastDate}}
-                                <!-- {{lastMessageParser(activeContact.messages[activeContact.messages.length
-                                -1].date)}} -->
+                        <!-- topbar-news -->
+                        <div id="topbar-news" class="d-flex flex-row news-background pl-4 align-items-center">
+                            <div id="container-bell">
+                                <i class="fa-regular fa-bell-slash"></i>
+                            </div>
+                            <div class="news-text d-flex flex-column align-items-start justify-content-center pl-1">
+                                <div class="news-title ">
+                                    Ricevi notifiche di nuovi messaggi
+                                </div>
+                                <span class="news-description text-left">
+                                    Attiva le notifiche desktop
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex flex-row align-items-center justify-content-between pl-1 bg-white"
+                                @click="contactInterface = !contactInterface">
+                                <div class="user-left d-flex flex-row justify-content-center">
+                                    <div class="contact-image-container py-2 ml-3">
+                                        <!-- user-container -->
+                                        <div class=" my-rounded userDimensions">
+                                            <i class="fa-solid fa-user-plus"></i>
+                                        </div>
+                                    </div>
+                                    <div class="user-info p-2 d-flex flex-column justify-content-center">
+                                        <div class="username">NUOVO CONTATTO</div>
+                                    </div>
+                                </div>
+                                <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
+                                    <div class="last-message-time last-message text-grey">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="contactInterface">
+                                <!-- adding a contact -->
+                                <div class="sidebar-search d-flex align-items-center flex-grow-1 p-2"
+                                    style="background-color: white;">
+                                    <div class="d-flex align-items-center bg-light flex-grow-1 p-2">
+                                        <input type="text" class="flex-grow-1 border-0 bg-light py-1"
+                                            v-model="newUserName" placeholder="Nome" @keyup.enter="addChat()">
+                                        <i class="fa-solid fa-plus-circle p-2" @click="addChat()"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sidebar-search d-flex  align-items-center flex-grow-1 p-2"
+                            style="background-color: white;" v-if="!contactInterface">
+                            <div class="   d-flex  align-items-center bg-light flex-grow-1 p-2 ">
+                                <i class="fa-solid fa-search p-2 "></i>
+                                <input type="text" class="flex-grow-1 border-0 bg-light py-1"
+                                    placeholder="Cerca o inizia una nuova chat" @keydown.enter="searchChat()"
+                                    v-model="chatsearchinput">
                             </div>
                         </div>
                     </div>
-                    <div class="topbar-right d-flex flex-row " v-if="!contactsEmpity">
-                        <div class="icon-container mr-2">
-                            <i class="fa-solid fa-magnifying-glass " style="color: #b1b1b1"></i>
-                        </div>
-                        <div class="icon-container mr-2">
-                            <i class="fa-solid fa-paperclip " style="color: #b1b1b1"></i>
-                        </div>
-                        <div class="icon-container mr-2" @click="popupDelete()">
-                            <i class="fa-solid fa-ellipsis-vertical " style="color: #b1b1b1"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- chat will be generated via js -->
-
-
-                <div class="bottom-content d-flex flex-column justify-content-end">
-                    <div id="popupdelete" v-if="deletePopup" @click="popupDelete()">
-                        <div class="popup-inner card ">
-                            <div class="button btn-info my-2 text-center" @click="deleteAllMessages()">cancella i
-                                messaggi</div>
-                            <div class="button btn-danger text-center" @click="deleteChat()">cancella la chat</div>
-
-                        </div>
-                    </div>
-                    <div class="chat-container py-3" ref="scrollContainer" v-if="!contactsEmpity">
-                        <div id="chat" class="chat-width d-flex flex-column justify-content-end">
-                            <!-- generated via js -->
-                            <div v-for="(message,index) in contacts[userIndex].messages">
-
-                                <div v-if="activeContact.messages.length" class="d-flex justify-content-start pb-1"
-                                    :class="'justify-content-'+returnStartEnd(message.status)"
-                                    @mouseover="assigndelete(index)" @mouseleave="removedelete(index)">
-                                    <div class="message card px-3 py-2 message-content d-flex flex-row justify-content-between"
-                                        :class="'bg-'+returnStartEnd(message.status)">
-                                        <span>{{message.message}}</span>
-                                        <div class="time d-flex flex-row justify-content-start align-items-start pl-2">
-                                            <div>{{lastMessageParser(message.date)}}</div>
-
+                    <div class="sidebar-bottom bg-debug flex-grow-1">
+                        <div class="row row-fixer " v-if="(!contactsEmpity && !contactInterface) ">
+                            <!-- user to replicate -->
+                            <div v-for="(user, index) in contacts" @click="selectUser(user.id)"
+                                :class="{'clickedObj' : isSelected(user.id)}" class="contact col-12 ">
+                                <div class="outer-rendering" v-show="user.visible">
+                                    <div class="d-flex flex-row align-items-center justify-content-between">
+                                        <div class="user-left d-flex flex-row justify-content-center">
+                                            <div class="contact-image-container py-2 ">
+                                                <img :src="user.avatar" class="my-rounded" alt="">
+                                            </div>
+                                            <div class="user-info p-2">
+                                                <div class="username">{{user.name}}</div>
+                                                <div class="text-grey last-message">{{getLastMessage(user.id)}} inviato
+                                                    alle
+                                                    {{lastDateId(user.id)}}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- creating a popup bin -->
-
-                                    <div class="d-flex flex-row"
-                                        :class="'justify-content-'+returnStartEnd(message.status)">
-                                        <div class="deletemsg">
-                                            <div v-show="isbintoshow(index)" class="pl-2" @click="removeMessage(index)">
-                                                <i class="fa-solid fa-trash"></i>
+                                        <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
+                                            <div class="last-message-time last-message text-grey">
+                                                {{lastDateId(user.id)}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    <!-- chatting bar -->
-
-                    <div v-if="!contactsEmpity"
-                        class="writebar d-flex flex-row justify-content-center align-items-center px-3 "
-                        role="textbox ">
-                        <div class="d-flex flex-row align-items-center"><i class="fa-regular fa-smile smileAndMic"
-                                style="font-size: 1.3em;"></i></div>
-                        <div class="input-container  mx-3 d-flex flex-row align-items-center bg-light">
-
-                            <input type="text" class="flex-grow-1 border-0 bg-light px-2"
-                                placeholder="Scrivi un messaggio" @keydown.enter="addMessage()" v-model="messageToSend">
-                        </div>
-                        <div class="d-flex flex-row align-items-center"><i class="fa-solid smileAndMic"
-                                :class="{'fa-microphone' : !messageToSend}, {'fa-paper-plane' : messageToSend}"
-                                @click="checkadd()" style="font-size: 1.3em;"></i></div>
-                    </div>
-
                 </div>
-
+                <div class="content">
+                    <div class="topbar d-flex flex-row p-2">
+                        <div v-if="!contactsEmpity" class="topbar-left d-flex flex-row flex-grow-1">
+                            <div class="topbar-profile ">
+                                <img class="profile-icon" :src="activeContact.avatar" alt="profile">
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                                <div class="topbar-name d-flex flex-row align-items-center ml-2 "
+                                    style="max-height: 10px; padding-top: 5px;">{{activeContact.name}}</div>
+                                <div class="ml-2 my-text-info" v-if="(myTimeout !== '')">sta scrivendo...</div>
+                                <div v-else class="ml-2 my-text-info">ultimo accesso
+                                    {{lastDate}}
+                                    <!-- {{lastMessageParser(activeContact.messages[activeContact.messages.length
+                                    -1].date)}} -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="topbar-right d-flex flex-row " v-if="!contactsEmpity">
+                            <div class="icon-container mr-2">
+                                <i class="fa-solid fa-magnifying-glass " style="color: #b1b1b1"></i>
+                            </div>
+                            <div class="icon-container mr-2">
+                                <i class="fa-solid fa-paperclip " style="color: #b1b1b1"></i>
+                            </div>
+                            <div class="icon-container mr-2" @click="popupDelete()">
+                                <i class="fa-solid fa-ellipsis-vertical " style="color: #b1b1b1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- chat will be generated via js -->
+                    <div class="bottom-content d-flex flex-column justify-content-end">
+                        <div id="popupdelete" v-if="deletePopup" @click="popupDelete()">
+                            <div class="popup-inner card ">
+                                <div class="button btn-info my-2 text-center" @click="deleteAllMessages()">cancella i
+                                    messaggi</div>
+                                <div class="button btn-danger text-center" @click="deleteChat()">cancella la chat</div>
+                            </div>
+                        </div>
+                        <div class="chat-container py-3" ref="scrollContainer" v-if="!contactsEmpity">
+                            <div id="chat" class="chat-width d-flex flex-column justify-content-end">
+                                <!-- generated via js -->
+                                <div v-for="(message,index) in contacts[userIndex].messages">
+                                    <div v-if="activeContact.messages.length" class="d-flex justify-content-start pb-1"
+                                        :class="'justify-content-'+returnStartEnd(message.status)"
+                                        @mouseover="assigndelete(index)" @mouseleave="removedelete(index)">
+                                        <div class="message card px-3 py-2 message-content d-flex flex-row justify-content-between"
+                                            :class="'bg-'+returnStartEnd(message.status)">
+                                            <span>{{message.message}}</span>
+                                            <div
+                                                class="time d-flex flex-row justify-content-start align-items-start pl-2">
+                                                <div>{{lastMessageParser(message.date)}}</div>
+                                            </div>
+                                        </div>
+                                        <!-- creating a popup bin -->
+                                        <div class="d-flex flex-row"
+                                            :class="'justify-content-'+returnStartEnd(message.status)">
+                                            <div class="deletemsg">
+                                                <div v-show="isbintoshow(index)" class="pl-2"
+                                                    @click="removeMessage(index)">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- chatting bar -->
+                        <div v-if="!contactsEmpity"
+                            class="writebar d-flex flex-row justify-content-center align-items-center px-3 "
+                            role="textbox ">
+                            <div class="d-flex flex-row align-items-center"><i class="fa-regular fa-smile smileAndMic"
+                                    style="font-size: 1.3em;"></i></div>
+                            <div class="input-container  mx-3 d-flex flex-row align-items-center bg-light">
+                                <input type="text" class="flex-grow-1 border-0 bg-light px-2"
+                                    placeholder="Scrivi un messaggio" @keydown.enter="addMessage()"
+                                    v-model="messageToSend">
+                            </div>
+                            <div class="d-flex flex-row align-items-center"><i class="fa-solid smileAndMic"
+                                    :class="{'fa-microphone' : !messageToSend}, {'fa-paper-plane' : messageToSend}"
+                                    @click="checkadd()" style="font-size: 1.3em;"></i></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

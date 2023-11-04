@@ -6,6 +6,7 @@ const { createApp } = Vue;
 const obj = {
     data() {
         return {
+            loading: true,
             contacts: dataContacts,
             userIndex: 0,
             messageToSend: '',
@@ -17,6 +18,7 @@ const obj = {
             deletePopup: false,
             contactsEmpity: false,
             contactInterface: false,
+            progressBarWidth: 0,
         }
     },
     methods: {
@@ -201,7 +203,8 @@ const obj = {
             } else {
                 document.documentElement.style.setProperty('--primary-color', '#3498db'); // Default color
             }
-        }
+        },
+
 
 
     },
@@ -220,8 +223,12 @@ const obj = {
 
     },
     mounted() {
+        setTimeout(() => {
 
-    }
+            this.loading = false
+        }, 2000)
+    },
+
 }
 
 createApp(obj).mount('#app')
