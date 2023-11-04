@@ -18,7 +18,7 @@ const obj = {
             deletePopup: false,
             contactsEmpity: false,
             contactInterface: false,
-            progressBarWidth: 0,
+            darkcolor: false,
         }
     },
     methods: {
@@ -196,12 +196,27 @@ const obj = {
         deleteAllMessages() {
             this.activeContact.messages = []
         },
-        //to work on later
-        isDarkMode(newValue) {
-            if (newValue) {
-                document.documentElement.style.setProperty('--primary-color', '#e74c3c'); // Dark mode color
+
+        isDarkMode() {
+            this.darkcolor = !this.darkcolor;
+            if (!this.darkcolor) {
+                document.documentElement.style.setProperty('--font-color', 'black');
+                document.documentElement.style.setProperty('--my-white', 'white');
+                document.documentElement.style.setProperty('--user-bg-color', '#e3e4e8');
+                document.documentElement.style.setProperty('--my-chat-color', '#d9fdd3');
+                document.documentElement.style.setProperty('--main-bg', 'url(https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png)');
+
+
+
             } else {
-                document.documentElement.style.setProperty('--primary-color', '#3498db'); // Default color
+                document.documentElement.style.setProperty('--font-color', 'white');
+                document.documentElement.style.setProperty('--my-white', '#6c6764');
+                document.documentElement.style.setProperty('--user-bg-color', 'black');
+                document.documentElement.style.setProperty('--my-chat-color', 'green');
+                document.documentElement.style.setProperty('--main-bg', 'grey');
+
+
+
             }
         },
 
