@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="sidebar-search d-flex  align-items-center flex-grow-1 p-2"
-                        style="background-color: white;">
+                        style="background-color: white;" v-if="!contactInterface">
                         <div class="   d-flex  align-items-center bg-light flex-grow-1 p-2 ">
                             <i class="fa-solid fa-search p-2 "></i>
                             <input type="text" class="flex-grow-1 border-0 bg-light py-1"
@@ -77,13 +77,41 @@
 
                 <div class="sidebar-bottom bg-debug flex-grow-1">
 
-                    <div class="row row-fixer " v-if="!contactsEmpity">
+                    <div>
+                        <div class="d-flex flex-row align-items-center justify-content-between pl-1"
+                            @click="contactInterface = !contactInterface">
+                            <div class="user-left d-flex flex-row justify-content-center">
+                                <div class="contact-image-container py-2 ml-3">
+                                    <!-- user-container -->
+                                    <div class=" my-rounded userDimensions">
+                                        <i class="fa-solid fa-user-plus"></i>
+                                    </div>
+                                </div>
+                                <div class="user-info p-2">
+                                    <div class="username">NUOVO CONTATTO</div>
+                                </div>
+                            </div>
+                            <div class="user-right d-flex flex-column justify-content-start h-100 pt-1">
+                                <div class="last-message-time last-message text-grey">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="contactInterface">
+                            <!-- adding a contact -->
+                            <div class="sidebar-search d-flex align-items-center flex-grow-1 p-2"
+                                style="background-color: white;">
+                                <div class="d-flex align-items-center bg-light flex-grow-1 p-2">
+                                    <input type="text" class="flex-grow-1 border-0 bg-light py-1" v-model="newUserName"
+                                        placeholder="Nome" @keyup.enter="addChat()">
+                                    <i class="fa-solid fa-plus-circle p-2" @click="addChat()"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-fixer " v-if="(!contactsEmpity && !contactInterface) ">
                         <!-- user to replicate -->
-
-
-
-
-
 
                         <div v-for="(user, index) in contacts" @click="selectUser(user.id)"
                             :class="{'clickedObj' : isSelected(user.id)}" class="contact col-12 ">
@@ -115,6 +143,7 @@
 
 
                     </div>
+
                 </div>
             </div>
             <div class="content">
@@ -205,7 +234,7 @@
                         <div class="d-flex flex-row align-items-center"><i class="fa-solid smileAndMic"
                                 :class="{'fa-microphone' : !messageToSend}, {'fa-paper-plane' : messageToSend}"
                                 @click="checkadd()" style="font-size: 1.3em;"></i></div>
-                    </div>gi
+                    </div>
 
                 </div>
 

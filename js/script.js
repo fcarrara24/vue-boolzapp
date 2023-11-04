@@ -13,8 +13,10 @@ const obj = {
             chatsearchinput: '',
             chatParsed: '',
             deleteindex: '',
+            newUserName: '',
             deletePopup: false,
-            contactsEmpity: false
+            contactsEmpity: false,
+            contactInterface: false,
         }
     },
     methods: {
@@ -161,7 +163,7 @@ const obj = {
             this.deletePopup = !this.deletePopup;
         },
         deleteChat() {
-            if (this.contacts.length === 1) {
+            if (this.contacts.length == 1) {
                 this.contactsEmpity = true
             }
             this.contacts.splice((this.userIndex), 1)
@@ -169,11 +171,36 @@ const obj = {
 
         },
         addChat() {
-            //fine
-            this.contactsEmpity = false
+            if (this.newUserName.replace(/ /g, '') !== '') {
+                const newchat = {
+                    id: this.contacts.length + 1,
+                    name: this.newUserName,
+                    avatar: 'img/avatar_5.jpg',
+                    visible: true,
+                    messages: [
+
+                    ],
+                }
+
+                console.log(newchat)
+                this.contacts.push(newchat)
+                //fine
+                this.contactsEmpity = false;
+                this.contactInterface = false;
+                this.newUserName = '';
+            }
+
         },
         deleteAllMessages() {
             this.activeContact.messages = []
+        },
+        //to work on later
+        isDarkMode(newValue) {
+            if (newValue) {
+                document.documentElement.style.setProperty('--primary-color', '#e74c3c'); // Dark mode color
+            } else {
+                document.documentElement.style.setProperty('--primary-color', '#3498db'); // Default color
+            }
         }
 
 
