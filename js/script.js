@@ -19,6 +19,7 @@ const obj = {
             contactsEmpity: false,
             contactInterface: false,
             darkcolor: false,
+            showChat: false,
         }
     },
     methods: {
@@ -69,7 +70,7 @@ const obj = {
         },
         addMessage() {
 
-            if (this.messageToSend.replace(/ /g, '') !== '') {
+            if (this.messageToSend.replaceAll(' ', '') !== '') {
                 let message = {
                     date: this.dateConstructor(),
                     message: this.messageToSend,
@@ -95,6 +96,7 @@ const obj = {
                 message: possibleResponses[getRnd(0, possibleResponses.length - 1)].rndMsg,
                 status: 'response'
             }
+            this.getGPTResponse('ciao_come_va')
             this.contacts[this.userIndex].messages.push(message)
             //autoscroll
             this.autoScroll()
@@ -205,6 +207,8 @@ const obj = {
                 document.documentElement.style.setProperty('--user-bg-color', '#e3e4e8');
                 document.documentElement.style.setProperty('--my-chat-color', '#d9fdd3');
                 document.documentElement.style.setProperty('--main-bg', 'url(https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png)');
+                document.documentElement.style.setProperty('--icons-grey-filler', '#b1b1b1');
+                document.documentElement.style.setProperty('--contact-clicked', '#e1e1e1');
 
 
 
@@ -213,12 +217,40 @@ const obj = {
                 document.documentElement.style.setProperty('--my-white', '#6c6764');
                 document.documentElement.style.setProperty('--user-bg-color', 'black');
                 document.documentElement.style.setProperty('--my-chat-color', 'green');
+                document.documentElement.style.setProperty('--icons-grey-filler', 'black');
                 document.documentElement.style.setProperty('--main-bg', 'grey');
+                document.documentElement.style.setProperty('--contact-clicked', 'black');
+
 
 
 
             }
         },
+
+        getGPTResponse(input) {
+            const apiKey = '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';
+            const apiUrl = //api
+
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        prompt: input,
+                        max_tokens: 150 // Adjust the response length as needed
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.gptMessage = data.choices[0].text.trim();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching GPT response:', error);
+                    });
+        },
+
 
 
 

@@ -29,7 +29,9 @@
             </div>
 
             <div class="content-all d-flex flex-row" v-if="!loading">
-                <div class="sidebar bg-secondary d-flex flex-column">
+                <div class="sidebar bg-secondary h-100 flex-column d-md-flex "
+                    :class="{'d-none' : showChat, 'd-flex': !showChat}">
+
                     <div class="sidebar-top  d-flex flex-column">
                         <!-- topbar profile -->
                         <div class="topbar d-flex flex-row p-2 border-grey ">
@@ -40,6 +42,7 @@
                                 <div class="topbar-name d-flex flex-row align-items-center ml-2">Chiara</div>
                             </div>
                             <div class="topbar-right d-flex flex-row ">
+
                                 <div class="icon-container mr-2" @click="isDarkMode()">
                                     <i class="fa-regular fa-circle " style="color: #b1b1b1"></i>
                                 </div>
@@ -103,14 +106,14 @@
                             <div class="   d-flex  align-items-center bg-light flex-grow-1 p-2 ">
                                 <i class="fa-solid fa-search p-2 "></i>
                                 <input type="text" class="flex-grow-1 border-0 bg-light py-1" placeholder="Cerca "
-                                    @keydown.enter="searchChat()" v-model="chatsearchinput">
+                                    @input="searchChat()" v-model="chatsearchinput">
                             </div>
                         </div>
                     </div>
                     <div class="sidebar-bottom bg-debug flex-grow-1">
                         <div class="row row-fixer " v-if="(!contactsEmpity && !contactInterface) ">
                             <!-- user to replicate -->
-                            <div v-for="(user, index) in contacts" @click="selectUser(user.id)"
+                            <div v-for="(user, index) in contacts" @click="selectUser(user.id), this.showChat = true; "
                                 :class="{'clickedObj' : isSelected(user.id)}" class="contact col-12 ">
                                 <div class="outer-rendering" v-show="user.visible">
                                     <div class="d-flex flex-row align-items-center justify-content-between">
@@ -136,7 +139,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="content">
+                <div class="content d-md-block h-100 d-none" :class="{'d-block' : showChat, 'w-100' : showChat, }">
                     <div class="topbar d-flex flex-row p-2">
                         <div v-if="!contactsEmpity" class="topbar-left d-flex flex-row flex-grow-1">
                             <div class="topbar-profile ">
@@ -148,12 +151,14 @@
                                 <div class="ml-2 my-text-info" v-if="(myTimeout !== '')">sta scrivendo...</div>
                                 <div v-else class="ml-2 my-text-info">ultimo accesso
                                     {{lastDate}}
-                                    <!-- {{lastMessageParser(activeContact.messages[activeContact.messages.length
-                                    -1].date)}} -->
+
                                 </div>
                             </div>
                         </div>
                         <div class="topbar-right d-flex flex-row " v-if="!contactsEmpity">
+                            <div class="icon-container mr-2  d-md-none" @click="showChat = false">
+                                <i class="fa-solid fa-arrow-left " style="color: #b1b1b1"></i>
+                            </div>
                             <div class="icon-container mr-2">
                                 <i class="fa-solid fa-magnifying-glass " style="color: #b1b1b1"></i>
                             </div>
@@ -183,7 +188,7 @@
                                         @mouseover="assigndelete(index)" @mouseleave="removedelete(index)">
                                         <div class="message card px-3 py-2 message-content d-flex flex-row justify-content-between"
                                             :class="'bg-'+returnStartEnd(message.status)">
-                                            <span>{{message.message}}</span>
+                                            <div class="msg-container">{{message.message}}</div>
                                             <div
                                                 class="time d-flex flex-row justify-content-start align-items-start pl-2">
                                                 <div>{{lastMessageParser(message.date)}}</div>

@@ -132,7 +132,11 @@ img{
     border-right: 1px solid var(--icons-grey-filler);
 }
 
-
+.msg-container{
+    max-width: 90%;
+    text-overflow: hidden;
+    height: fit-content;
+}
 
 
 
@@ -299,9 +303,7 @@ input{
 
 /* tablet */
 @media screen and (max-width: 768px) {
-    .topbar-name{
-        display: none!important;
-    }
+    
     .news-title{
         display: none;
     }
@@ -311,24 +313,6 @@ input{
     
 }
 
-@media screen and (max-width: 600px) {
-    .user-info{
-        display: none;
-    }
-    .icon-container{
-        display: none;
-    }
-    .news-description{
-        display: none;
-    }
-    .chat-width{
-        width: auto;
-    }
-    .message{
-        min-width: 0px!important;
-    }
-    
-}
 
 /* js */
 .clickedObj{
@@ -396,3 +380,6 @@ input{
     background-color: var(--my-white);
 }
 
+.popup-inner{
+    z-index: 2000;
+}
