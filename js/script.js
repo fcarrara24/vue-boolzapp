@@ -96,7 +96,6 @@ const obj = {
                 message: possibleResponses[getRnd(0, possibleResponses.length - 1)].rndMsg,
                 status: 'response'
             }
-            this.getGPTResponse('ciao_come_va')
             this.contacts[this.userIndex].messages.push(message)
             //autoscroll
             this.autoScroll()
@@ -227,29 +226,7 @@ const obj = {
             }
         },
 
-        getGPTResponse(input) {
-            const apiKey = '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';
-            const apiUrl = //api
 
-                fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        prompt: input,
-                        max_tokens: 150 // Adjust the response length as needed
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        this.gptMessage = data.choices[0].text.trim();
-                    })
-                    .catch(error => {
-                        console.error('Error fetching GPT response:', error);
-                    });
-        },
 
 
 
