@@ -1,5 +1,5 @@
 import { dataContacts } from './data.js'
-import { possibleResponses, getRnd } from './response.js'
+import { generateAIResponse } from './response.js'
 
 
 const { createApp } = Vue;
@@ -87,19 +87,40 @@ const obj = {
             this.messageToSend = '';
 
         },
-        addResponse() {
+        async addResponse() {
             clearTimeout(this.myTimeout);
-            // to trigger the typing display
+            // Show typing indicator
             this.myTimeout = '';
-            let message = {
-                date: this.dateConstructor(),
-                message: possibleResponses[getRnd(0, possibleResponses.length - 1)].rndMsg,
-                status: 'response'
+            
+            // Get the last user message for context
+            const lastUserMessage = this.contacts[this.userIndex].messages
+                .filter(msg => msg.status === 'sent')
+                .pop()?.message || 'Hello!';
+            
+            try {
+                // Get AI response
+                const aiResponse = await generateAIResponse(lastUserMessage);
+                
+                const message = {
+                    date: this.dateConstructor(),
+                    message: aiResponse.rndMsg,
+                    status: 'response'
+                };
+                
+                this.contacts[this.userIndex].messages.push(message);
+            } catch (error) {
+                console.error('Error getting AI response:', error);
+                // Fallback response in case of error
+                const message = {
+                    date: this.dateConstructor(),
+                    message: 'I had trouble thinking of a response. Could you rephrase that?',
+                    status: 'response'
+                };
+                this.contacts[this.userIndex].messages.push(message);
             }
-            this.contacts[this.userIndex].messages.push(message)
-            //autoscroll
-            this.autoScroll()
-            return
+            
+            // Auto-scroll to show the new message
+            this.autoScroll();
         },
         dateConstructor() {
             const date = new Date()
